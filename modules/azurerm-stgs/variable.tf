@@ -14,3 +14,4 @@ variable "stgs" {
     min_tls_version             = optional(string)
   }))
 }
+
