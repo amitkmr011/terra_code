@@ -9,6 +9,6 @@ resource"azurerm_storage_account" "stgs"{
     cross_tenant_replication_enabled =each.value.cross_tenant_replication_enabled
     access_tier=each.value.access_tier
     edge_zone =each.value.edge_zone
-    https_traffic_only_enabled  =each.value.https_traffic_only_enabled
+    # https_traffic_only_enabled  =each.value.https_traffic_only_enabled
     min_tls_version =each.value.min_tls_version
 }
