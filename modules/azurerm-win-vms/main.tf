@@ -5,7 +5,6 @@ resource "azurerm_public_ip" "pips" {
   location            = each.value.location
   allocation_method   = each.value.allocation_method
 
- 
 }
 resource "azurerm_network_interface" "nics" {
     for_each = var.vms
