@@ -17,14 +17,23 @@ module "module-rg" {
 # }
 
 module "module-vnets" {
-  depends_on = [module.module-rg]
+  depends_on = [module.module-nsgs]
   source     = "../../modules/azurerm-vnets"
   vnets      = var.dev-vnets
 
 }
-
-module "vm-module" {
-  depends_on = [ module.module-vnets ]
+module "module-nsgs" {
+  depends_on = [ module.module-rg ]
+  source = "../../modules/azurerm-nsgs"
+  nsgs = var.dev-nsgs
+}
+module "module-asgs" {
+  depends_on = [ module.module-rg ]
+  source = "../../modules/azurerm-asgs"
+  asgs = var.dev-asgs
+}
+module "module-win-vms" {
+  depends_on = [ module.module-vnets,module.module-asgs ]
   source = "../../modules/azurerm-win-vms"
-  vms=var.dev-vms
+  vms=var.dev-win-vms
 }

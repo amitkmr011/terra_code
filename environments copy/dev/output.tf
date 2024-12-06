@@ -5,7 +5,7 @@ output "rgs-name-id" {
 #   value = module.module-stgs.stgs-ids
 # }
 output "vm-public-ip" {
-  value = module.vm-module.vm-public-ip
+  value = module.module-win-vms.vm-public-ip
 }
 
 output "vnet-ids-space" {

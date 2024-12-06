@@ -1,6 +1,6 @@
 resource "azurerm_public_ip" "pips" {
     for_each = var.vms
-  name                ="${each.value.vm_name}-nic"
+  name                ="${each.value.vm_name}-pip"
   resource_group_name = each.value.resource_group_name
   location            = each.value.location
   allocation_method   = each.value.allocation_method
@@ -21,6 +21,18 @@ resource "azurerm_network_interface" "nics" {
 }
 
 
+resource "azurerm_network_interface_security_group_association" "nsg-nic-assoc" {
+  for_each = var.vms
+  network_interface_id      = azurerm_network_interface.nics[each.key].id
+  network_security_group_id = data.azurerm_network_security_group.nsg-data[each.key].id
+}
+
+
+resource "azurerm_network_interface_application_security_group_association" "asg-nic-assoc" {
+  for_each = var.vms
+  network_interface_id      = azurerm_network_interface.nics[each.key].id
+  application_security_group_id =data.azurerm_application_security_group.asgs-data[each.key].id
+}
 
 resource "azurerm_windows_virtual_machine" "vms" {
     for_each = var.vms

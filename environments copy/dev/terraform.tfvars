@@ -101,7 +101,7 @@ dev-vnets = {
 }
 
 
-dev-vms = {
+dev-win-vms = {
   vm1={
     vm_name= "Sanidhyavm"
     resource_group_name="Sanidhya1"
@@ -119,5 +119,91 @@ dev-vms = {
     subnet_name="floor1"
      virtual_network_name= "vnet"
      allocation_method="Static"
+     nsg_name="Sanidhyavm-nsg"
+     asgs_name="AppWeb"
+  }
+   vm2={
+    vm_name= "Sanidhyavm1"
+    resource_group_name="Sanidhya1"
+    location="Central india"
+    size="Standard_B1s"
+    admin_username="sanidhya"
+    admin_password="Sanidhya@123"
+    caching="ReadWrite"
+    storage_account_type="Standard_LRS"
+    publisher= "MicrosoftWindowsServer"
+    offer= "WindowsServer"
+    sku="2016-Datacenter"
+    version= "latest"
+    private_ip_address_allocation="Dynamic"
+    subnet_name="floor1"
+     virtual_network_name= "vnet"
+     allocation_method="Static"
+     nsg_name="Sanidhyavm-nsg"
+     asgs_name="AppWeb"
+  }
+  vm3={
+    vm_name= "Sanidhyavm2"
+    resource_group_name="Sanidhya1"
+    location="Central india"
+    size="Standard_B1s"
+    admin_username="sanidhya"
+    admin_password="Sanidhya@123"
+    caching="ReadWrite"
+    storage_account_type="Standard_LRS"
+    publisher= "MicrosoftWindowsServer"
+    offer= "WindowsServer"
+    sku="2016-Datacenter"
+    version= "latest"
+    private_ip_address_allocation="Dynamic"
+    subnet_name="floor2"
+     virtual_network_name= "vnet"
+     allocation_method="Static"
+     nsg_name="Sanidhyavm-nsg"
+     asgs_name="AppLogic"
+  }
+}
+
+dev-nsgs={
+  nsg1={
+    name="Sanidhyavm-nsg"
+    resource_group_name="Sanidhya1"
+    location="centralindia"
+    security_rules={
+      rule1={
+          name                       = "RDPAllow"
+    priority                   = 100
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range        = "*"
+    destination_port_range     = "3389"
+    source_address_prefix     ="*"
+    destination_address_prefix = "*"
+      }
+      rule2={
+          name                       = "RDPDeny"
+    priority                   = 110
+    direction                  = "Inbound"
+    access                     = "Deny"
+    protocol                   = "Tcp"
+    source_port_range        = "*"
+    destination_port_range     ="3389"
+    source_address_prefix    ="*"
+    destination_address_prefix= "*"
+      }
+    }
+  }
+}
+dev-asgs = {
+  asgs1={
+    name="AppWeb"
+    location="central India"
+    resource_group_name="Sanidhya1"
+  }
+  asgs2={
+    name="AppLogic"
+    location="central India"
+    resource_group_name="Sanidhya1"
   }
 }
