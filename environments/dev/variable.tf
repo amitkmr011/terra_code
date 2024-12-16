@@ -5,3 +5,4 @@ variable "dev-vnets" {}
 variable "dev-win-vms" {}
 variable "dev-nsgs" {}
 variable "dev-asgs" {}
+variable "dev-bastions" {}

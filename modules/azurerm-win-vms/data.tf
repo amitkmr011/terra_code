@@ -11,8 +11,8 @@ data "azurerm_network_security_group" "nsg-data" {
   resource_group_name = each.value.resource_group_name
 }
 
-data "azurerm_application_security_group" "asgs-data" {
-for_each = var.vms
-  name = each.value.asgs_name
-  resource_group_name = each.value.resource_group_name
-}
+# data "azurerm_application_security_group" "asgs-data" {
+# for_each = var.vms
+#   name = each.value.asgs_name
+#   resource_group_name = each.value.resource_group_name
+# }

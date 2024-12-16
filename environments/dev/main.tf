@@ -27,13 +27,19 @@ module "module-nsgs" {
   source = "../../modules/azurerm-nsgs"
   nsgs = var.dev-nsgs
 }
-module "module-asgs" {
-  depends_on = [ module.module-rg ]
-  source = "../../modules/azurerm-asgs"
-  asgs = var.dev-asgs
-}
+# module "module-asgs" {
+#   depends_on = [ module.module-rg ]
+#   source = "../../modules/azurerm-asgs"
+#   asgs = var.dev-asgs
+# }
 module "module-win-vms" {
-  depends_on = [ module.module-vnets,module.module-asgs ]
+  
+  depends_on = [ module.module-vnets ]#module.var.dev-asgs 
   source = "../../modules/azurerm-win-vms"
   vms=var.dev-win-vms
+}
+module "module-bastions" {
+  depends_on = [ module.module-vnets ]
+  source = "../../modules/azurerm-bastions"
+  bastions = var.dev-bastions
 }

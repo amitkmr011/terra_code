@@ -1,4 +1,3 @@
-
 resource "azurerm_application_security_group" "asgs" {
     for_each = var.asgs
   name                =each.value.name

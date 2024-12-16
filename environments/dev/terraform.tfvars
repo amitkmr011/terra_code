@@ -52,15 +52,15 @@ dev-cons = {
 dev-vnets = {
   vnet1 = {
     name                = "vnet"
-    location            = "Central india"
+    location            = "Japan East"
     resource_group_name = "Sanidhya1"
     address_space       = ["10.0.0.0/24"]
     dns_servers         = ["10.0.0.4", "10.0.0.5"]
     subnets = {
-       subnet1 = {
+      subnet1 = {
 
-      name             = "floor1"
-      address_prefixes = ["10.0.0.0/28"]
+        name             = "floor1"
+        address_prefixes = ["10.0.0.0/28"]
       }
       subnet2 = {
 
@@ -69,22 +69,22 @@ dev-vnets = {
       }
       subnet3 = {
 
-        name             = "floor3"
-        address_prefixes = ["10.0.0.32/27"]
+        name             = "AzureBastionSubnet"
+        address_prefixes = ["10.0.0.64/26"]
     } }
 
   }
   vnet2 = {
     name                = "vnet1"
-    location            = "Central india"
+    location            = "Japan East"
     resource_group_name = "Sanidhya1"
     address_space       = ["10.0.1.0/24"]
     dns_servers         = ["10.0.0.4", "10.0.0.5"]
-    subnets={
-       subnet1 = {
+    subnets = {
+      subnet1 = {
 
-      name             = "floor1"
-      address_prefixes = ["10.0.1.0/28"]
+        name             = "floor1"
+        address_prefixes = ["10.0.1.0/28"]
       }
       subnet2 = {
 
@@ -102,108 +102,120 @@ dev-vnets = {
 
 
 dev-win-vms = {
-  vm1={
-    vm_name= "Sanidhyavm"
-    resource_group_name="Sanidhya1"
-    location="Central india"
-    size="Standard_F2"
-    admin_username="sanidhya"
-    admin_password="Sanidhya@123"
-    caching="ReadWrite"
-    storage_account_type="Standard_LRS"
-    publisher= "MicrosoftWindowsServer"
-    offer= "WindowsServer"
-    sku="2016-Datacenter"
-    version= "latest"
-    private_ip_address_allocation="Dynamic"
-    subnet_name="floor1"
-     virtual_network_name= "vnet"
-     allocation_method="Static"
-     nsg_name="Sanidhyavm-nsg"
-     asgs_name="AppWeb"
+  vm1 = {
+    vm_name                       = "Sanidhyavm"
+    resource_group_name           = "Sanidhya1"
+    location                      = "Japan East"
+    size                          = "Standard_F2"
+    admin_username                = "sanidhya"
+    admin_password                = "Sanidhya@123"
+    caching                       = "ReadWrite"
+    storage_account_type          = "Standard_LRS"
+    publisher                     = "MicrosoftWindowsServer"
+    offer                         = "WindowsServer"
+    sku                           = "2016-Datacenter"
+    version                       = "latest"
+    private_ip_address_allocation = "Dynamic"
+    subnet_name                   = "floor1"
+    virtual_network_name          = "vnet"
+    allocation_method             = "Static"
+    nsg_name                      = "Sanidhyavm-nsg"
+    asgs_name                     = "AppWeb"
   }
-   vm2={
-    vm_name= "Sanidhyavm1"
-    resource_group_name="Sanidhya1"
-    location="Central india"
-    size="Standard_B1s"
-    admin_username="sanidhya"
-    admin_password="Sanidhya@123"
-    caching="ReadWrite"
-    storage_account_type="Standard_LRS"
-    publisher= "MicrosoftWindowsServer"
-    offer= "WindowsServer"
-    sku="2016-Datacenter"
-    version= "latest"
-    private_ip_address_allocation="Dynamic"
-    subnet_name="floor1"
-     virtual_network_name= "vnet"
-     allocation_method="Static"
-     nsg_name="Sanidhyavm-nsg"
-     asgs_name="AppWeb"
-  }
-  vm3={
-    vm_name= "Sanidhyavm2"
-    resource_group_name="Sanidhya1"
-    location="Central india"
-    size="Standard_B1s"
-    admin_username="sanidhya"
-    admin_password="Sanidhya@123"
-    caching="ReadWrite"
-    storage_account_type="Standard_LRS"
-    publisher= "MicrosoftWindowsServer"
-    offer= "WindowsServer"
-    sku="2016-Datacenter"
-    version= "latest"
-    private_ip_address_allocation="Dynamic"
-    subnet_name="floor2"
-     virtual_network_name= "vnet"
-     allocation_method="Static"
-     nsg_name="Sanidhyavm-nsg"
-     asgs_name="AppLogic"
-  }
+  #  vm2={
+  #   vm_name= "Sanidhyavm1"
+  #   resource_group_name="Sanidhya1"
+  #   location="Japan East"
+  #   size="Standard_B1s"
+  #   admin_username="sanidhya"
+  #   admin_password="Sanidhya@123"
+  #   caching="ReadWrite"
+  #   storage_account_type="Standard_LRS"
+  #   publisher= "MicrosoftWindowsServer"
+  #   offer= "WindowsServer"
+  #   sku="2016-Datacenter"
+  #   version= "latest"
+  #   private_ip_address_allocation="Dynamic"
+  #   subnet_name="floor1"
+  #    virtual_network_name= "vnet"
+  #    allocation_method="Static"
+  #    nsg_name="Sanidhyavm-nsg"
+  #    asgs_name="AppWeb"
+  # }
+  # vm3={
+  #   vm_name= "Sanidhyavm2"
+  #   resource_group_name="Sanidhya1"
+  #   location="Japan East"
+  #   size="Standard_B1s"
+  #   admin_username="sanidhya"
+  #   admin_password="Sanidhya@123"
+  #   caching="ReadWrite"
+  #   storage_account_type="Standard_LRS"
+  #   publisher= "MicrosoftWindowsServer"
+  #   offer= "WindowsServer"
+  #   sku="2016-Datacenter"
+  #   version= "latest"
+  #   private_ip_address_allocation="Dynamic"
+  #   subnet_name="floor2"
+  #    virtual_network_name= "vnet"
+  #    allocation_method="Static"
+  #    nsg_name="Sanidhyavm-nsg"
+  #    asgs_name="AppLogic"
+  # }
 }
 
-dev-nsgs={
-  nsg1={
-    name="Sanidhyavm-nsg"
-    resource_group_name="Sanidhya1"
-    location="centralindia"
-    security_rules={
-      rule1={
-          name                       = "RDPAllow"
-    priority                   = 100
-    direction                  = "Inbound"
-    access                     = "Allow"
-    protocol                   = "Tcp"
-    source_port_range        = "*"
-    destination_port_range     = "3389"
-    source_address_prefix     ="*"
-    destination_address_prefix = "*"
+dev-nsgs = {
+  nsg1 = {
+    name                = "Sanidhyavm-nsg"
+    resource_group_name = "Sanidhya1"
+    location            = "Japan East"
+    security_rules = {
+      rule1 = {
+        name                       = "RDPAllow"
+        priority                   = 100
+        direction                  = "Inbound"
+        access                     = "Allow"
+        protocol                   = "Tcp"
+        source_port_range          = "*"
+        destination_port_range     = "3389"
+        source_address_prefix      = "*"
+        destination_address_prefix = "*"
       }
-      rule2={
-          name                       = "RDPDeny"
-    priority                   = 110
-    direction                  = "Inbound"
-    access                     = "Deny"
-    protocol                   = "Tcp"
-    source_port_range        = "*"
-    destination_port_range     ="3389"
-    source_address_prefix    ="*"
-    destination_address_prefix= "*"
+      rule2 = {
+        name                       = "RDPDeny"
+        priority                   = 110
+        direction                  = "Inbound"
+        access                     = "Deny"
+        protocol                   = "Tcp"
+        source_port_range          = "*"
+        destination_port_range     = "3389"
+        source_address_prefix      = "*"
+        destination_address_prefix = "*"
       }
     }
   }
 }
 dev-asgs = {
-  asgs1={
-    name="AppWeb"
-    location="central India"
-    resource_group_name="Sanidhya1"
+  asgs1 = {
+    name                = "AppWeb"
+    location            = "Japan East"
+    resource_group_name = "Sanidhya1"
   }
-  asgs2={
-    name="AppLogic"
-    location="central India"
-    resource_group_name="Sanidhya1"
+  asgs2 = {
+    name                = "AppLogic"
+    location            = "Japan East"
+    resource_group_name = "Sanidhya1"
+  }
+}
+
+dev-bastions = {
+  bas1 = {
+    name                 = "sanidhyabastion"
+    location             = "Japan East"
+    resource_group_name  = "Sanidhya1"
+    allocation_method    = "Static"
+    pip_sku              = "Standard"
+    virtual_network_name = "vnet"
+    virtual_network_id      = false
   }
 }
