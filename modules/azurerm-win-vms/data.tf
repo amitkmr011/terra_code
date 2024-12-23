@@ -16,3 +16,9 @@ data "azurerm_network_security_group" "nsg-data" {
 #   name = each.value.asgs_name
 #   resource_group_name = each.value.resource_group_name
 # }
+data "azurerm_key_vault" "kv-data" {
+  for_each = var.vms
+  name                = each.value.kv_name
+  resource_group_name = each.value.resource_group_name
+}
+

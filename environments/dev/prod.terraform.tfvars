@@ -107,8 +107,8 @@ dev-win-vms = {
     resource_group_name           = "Sanidhya1"
     location                      = "Japan East"
     size                          = "Standard_F2"
-    admin_username                = "sanidhya"
-    admin_password                = "Sanidhya@123"
+    # admin_username                = "sanidhya"
+    # admin_password                = "Sanidhya@123"
     caching                       = "ReadWrite"
     storage_account_type          = "Standard_LRS"
     publisher                     = "MicrosoftWindowsServer"
@@ -121,27 +121,29 @@ dev-win-vms = {
     allocation_method             = "Static"
     nsg_name                      = "Sanidhyavm-nsg"
     asgs_name                     = "AppWeb"
+    kv_name="SanidhyaKeyvault"
   }
-  #  vm2={
-  #   vm_name= "Sanidhyavm1"
-  #   resource_group_name="Sanidhya1"
-  #   location="Japan East"
-  #   size="Standard_B1s"
-  #   admin_username="sanidhya"
-  #   admin_password="Sanidhya@123"
-  #   caching="ReadWrite"
-  #   storage_account_type="Standard_LRS"
-  #   publisher= "MicrosoftWindowsServer"
-  #   offer= "WindowsServer"
-  #   sku="2016-Datacenter"
-  #   version= "latest"
-  #   private_ip_address_allocation="Dynamic"
-  #   subnet_name="floor1"
-  #    virtual_network_name= "vnet"
-  #    allocation_method="Static"
-  #    nsg_name="Sanidhyavm-nsg"
-  #    asgs_name="AppWeb"
-  # }
+   vm2={
+    vm_name= "Sanidhyavm1"
+    resource_group_name="Sanidhya1"
+    location="Japan East"
+    size="Standard_B1s"
+    admin_username="sanidhya"
+    admin_password="Sanidhya@123"
+    caching="ReadWrite"
+    storage_account_type="Standard_LRS"
+    publisher= "MicrosoftWindowsServer"
+    offer= "WindowsServer"
+    sku="2016-Datacenter"
+    version= "latest"
+    private_ip_address_allocation="Dynamic"
+    subnet_name="floor1"
+     virtual_network_name= "vnet"
+     allocation_method="Static"
+     nsg_name="Sanidhyavm-nsg"
+     asgs_name="AppWeb"
+     kv_name="SanidhyaKeyvault"
+  }
   # vm3={
   #   vm_name= "Sanidhyavm2"
   #   resource_group_name="Sanidhya1"
@@ -219,3 +221,18 @@ dev-bastions = {
     virtual_network_id      = false
   }
 }
+
+dev-keyvaults = {
+  kv1 = {
+    name                       = "SanidhyaKeyvault"
+    location                   = "Japan East"
+    resource_group_name        = "Sanidhya1"
+    soft_delete_retention_days = 7
+    purge_protection_enabled   = true
+    sku_name                   = "standard"
+    key_permissions            = ["Backup", "Create", "Decrypt", "Delete", "Encrypt", "Get", "Import", "List", "Purge", "Recover", "Restore", "Sign", "UnwrapKey", "Update", "Verify", "WrapKey", "Release", "Rotate", "GetRotationPolicy","SetRotationPolicy"]
+    secret_permissions         = ["Backup", "Delete", "Get", "List", "Purge", "Recover","Restore","Set"]
+    storage_permissions        = []
+    certificate_permissions    = ["Backup", "Create", "Delete", "DeleteIssuers", "Get", "GetIssuers", "Import", "List", "ListIssuers", "ManageContacts", "ManageIssuers", "Purge", "Recover", "Restore", "SetIssuers", "Update"]
+
+} }

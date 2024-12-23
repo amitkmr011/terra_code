@@ -34,7 +34,7 @@ module "module-nsgs" {
 # }
 module "module-win-vms" {
   
-  depends_on = [ module.module-vnets ]#module.var.dev-asgs 
+  depends_on = [ module.module-vnets,module.module-keyvaults ]#module.var.dev-asgs 
   source = "../../modules/azurerm-win-vms"
   vms=var.dev-win-vms
 }
@@ -42,4 +42,9 @@ module "module-bastions" {
   depends_on = [ module.module-vnets ]
   source = "../../modules/azurerm-bastions"
   bastions = var.dev-bastions
+}
+module "module-keyvaults" {
+  depends_on = [ module.module-rg ]
+  source = "../../modules/azurerm-keyvault"
+  keyvaults = var.dev-keyvaults
 }

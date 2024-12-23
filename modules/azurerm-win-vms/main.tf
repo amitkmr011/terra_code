@@ -33,15 +33,42 @@ resource "azurerm_network_interface_security_group_association" "nsg-nic-assoc" 
 #   network_interface_id      = azurerm_network_interface.nics[each.key].id
 #   application_security_group_id =data.azurerm_application_security_group.asgs-data[each.key].id
 # }
+resource "random_string" "username" {
+  for_each = var.vms
+  length           = 12
+  special          = true
+  override_special = "/@£$"
+}
+resource "random_password" "password" {
+  for_each = var.vms
+  length           = 16
+min_lower = 3
+min_upper = 3
+min_numeric = 2
+  special          = true
+  override_special = "!#$%&*()-_=+[]{}<>:?"
+}
+resource "azurerm_key_vault_secret" "vm-user" {
+  for_each = var.vms
+  name         = "${each.value.vm_name}-user"
+  value        = random_string.username[each.key].result
+  key_vault_id = data.azurerm_key_vault.kv-data[each.key].id
+}
 
+resource "azurerm_key_vault_secret" "vm-pass" {
+  for_each = var.vms
+  name         ="${each.value.vm_name}-pass"
+  value        =random_password.password[each.key].result
+  key_vault_id = data.azurerm_key_vault.kv-data[each.key].id
+}
 resource "azurerm_windows_virtual_machine" "vms" {
     for_each = var.vms
   name                = each.value.vm_name
   resource_group_name = each.value.resource_group_name
   location            = each.value.location
   size                =  each.value.size
-  admin_username      = each.value.admin_username
-  admin_password      =  each.value.admin_password
+  admin_username      = azurerm_key_vault_secret.vm-user[each.key].value
+  admin_password      = azurerm_key_vault_secret.vm-pass[each.key].value
   network_interface_ids = [
     azurerm_network_interface.nics[each.key].id,
   ]
