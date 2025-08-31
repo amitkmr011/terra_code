@@ -1,18 +1,20 @@
 name: workflow Snyk
 on: push
 jobs:
-  security_synk :
+  security_snyk:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
       
-      - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/node@master
+      - name: Run Snyk to check for vulnerabilities in IaC
+        # Use the specific action for Infrastructure as Code (IaC)
+        uses: snyk/actions/iac@master
         continue-on-error: true # Ensure the workflow doesn't stop on Snyk findings
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          args: --all-projects --sarif-file-output=snyk.sarif # Adds --all-projects and redirects SARIF output to a file
+          # Use --all-projects to recursively scan all IaC files
+          args: --all-projects --sarif-file-output=snyk.sarif
           
       - name: Upload result to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@v2
