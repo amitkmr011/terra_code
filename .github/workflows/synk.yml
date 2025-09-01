@@ -26,9 +26,39 @@ jobs:
         run: |
           snyk iac test . --sarif-file-output=snyk-terraform.sarif || true
           ls -lh
+          
 
       - name: Upload SARIF to GitHub Security tab
         uses: github/codeql-action/upload-sarif@v3
         if: always()
         with:
           sarif_file: snyk-terraform.sarif
+
+  sonar_scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Java (required for Sonar Scanner)
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Download SonarQube Scanner
+        run: |
+          wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-5.0.1.3006-linux.zip
+          unzip sonar-scanner-*.zip
+          mv sonar-scanner-*/ sonar-scanner
+          echo "$(pwd)/sonar-scanner/bin" >> $GITHUB_PATH
+
+      - name: Run SonarQube Scan
+        env:
+          SONAR_TOKEN: ${{ secrets.gihub_iac }}
+        run: |
+          sonar-scanner \
+            -Dsonar.projectKey=my-terraform-repo \
+            -Dsonar.sources=. \
+            -Dsonar.host.url=http://4.213.156.53:9000 \
+            -Dsonar.login=$SONAR_TOKEN
