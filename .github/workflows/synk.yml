@@ -43,7 +43,7 @@ jobs:
         uses: sonarsource/sonarqube-scan-action@v2
         env:
           SONAR_TOKEN: ${{ secrets.gihub_iac }}
-          SONAR_HOST_URL: "http://4.213.156.53:9000"
+          SONAR_HOST_URL: ${{ secrets.URL }}
   
 
      
